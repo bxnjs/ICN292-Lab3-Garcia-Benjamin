@@ -1,0 +1,143 @@
+{
+  "name": "parte B",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8754c98e-891f-47bd-a625-09181126c7ff",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a013a6db-1339-4202-b02e-af6dc1c58172",
+              "name": "input",
+              "value": "{   \"id_solicitud\": \"DEV-ERR5\",   \"sku\": \"ZZ-999\",   \"unidades\": \"1\",   \"monto\": \"24990\",   \"dias_desde_compra\": \"3\",   \"estado_producto\": \"sin_abrir\",   \"email_cliente\": \"testerr5@example.cl\" }",
+              "type": "object"
+            },
+            {
+              "id": "224fc0c3-b13c-448a-a227-6fa6a4d2bbad",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "97e3953b-d43e-4547-a5d2-d8c049d429b3",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id_solicitud"
+            },
+            {
+              "aggregation": "sum",
+              "field": "monto"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "estado_producto",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        688,
+        0
+      ],
+      "id": "8dc5978e-3031-482a-814a-ca148d10d3e2",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "input",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        480,
+        0
+      ],
+      "id": "602c11d2-eb2d-4f2f-b7f2-d2ccaa65c609",
+      "name": "Split Out"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a6108ad0-74df-4627-92b3-120c2bdb08a1",
+  "meta": {
+    "instanceId": "575ddafb94ed0ffddd2edb8e6e393eb772e9f33f2477031c9eef729b25ab3865"
+  },
+  "nodeGroups": [],
+  "id": "iOoLWoKKwmY5ii0o",
+  "tags": []
+}
